@@ -18,12 +18,27 @@ function focusNextToneInput() {
   const activeElement = $(document.activeElement);
 
   if (activeElement.prop("tagName") !== "INPUT") {
-    $("#tone-input-0").trigger("focus");
+    $(".tone-text-input:visible").first().trigger("focus");
     return;
   }
 
-  let i = activeElement.attr("id").split("-").pop();
+  const i = activeElement.attr("id").split("-").pop();
   $(`#tone-input-${Number(i) + 1}`).trigger("focus");
+}
+
+function focusPreviousToneInput() {
+  const activeElement = $(document.activeElement);
+
+  if (activeElement.prop("tagName") !== "INPUT") {
+    $(".tone-text-input:visible").last().trigger("focus");
+    return;
+  }
+
+  const i = activeElement.attr("id").split("-").pop();
+  if (i === 0) return;
+
+  $(`#tone-input-${Number(i) - 1}`).trigger("focus");
+  $(`#tone-input-${Number(i) - 1}`)[0].setSelectionRange(1, 1);
 }
 
 function handleToneInput() {
@@ -173,10 +188,15 @@ const shortcuts = {
   ArrowRight: () => {
     focusNextToneInput();
   },
+  ArrowLeft: () => {
+    focusPreviousToneInput();
+  },
 };
 
 $(document).on("keydown", (e) => {
   if (e.key in shortcuts) {
     shortcuts[e.key]();
+    e.preventDefault();
+    e.stopPropagation();
   }
 });
