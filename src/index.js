@@ -14,6 +14,18 @@ const tones = {
   4: "ˋ",
 };
 
+function focusNextToneInput() {
+  const activeElement = $(document.activeElement);
+
+  if (activeElement.prop("tagName") !== "INPUT") {
+    $("#tone-input-0").trigger("focus");
+    return;
+  }
+
+  let i = activeElement.attr("id").split("-").pop();
+  $(`#tone-input-${Number(i) + 1}`).trigger("focus");
+}
+
 function handleToneInput() {
   if ($(this).val() in tones) {
     $(this).val(tones[$(this).val()]);
@@ -21,7 +33,7 @@ function handleToneInput() {
 
     // focus next input
     let i = $(this).attr("id").split("-").pop();
-    $(`#tone-input-${Number(i) + 1}`).focus();
+    $(`#tone-input-${Number(i) + 1}`).trigger("focus");
   } else {
     $(this).val("");
   }
@@ -50,7 +62,7 @@ function setExpression(expression) {
     $("#tone-input-wrapper").append(toneInputGroup);
 
     if (i === 0) {
-      toneInputGroup.children("input").first().focus();
+      toneInputGroup.children("input").first().trigger("focus");
     }
   }
 }
@@ -157,6 +169,9 @@ const shortcuts = {
     } else {
       validate();
     }
+  },
+  ArrowRight: () => {
+    focusNextToneInput();
   },
 };
 
