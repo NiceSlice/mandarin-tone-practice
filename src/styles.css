@@ -138,6 +138,11 @@ body {
   cursor: pointer;
   margin: 0 0.25rem;
   display: flex;
+  transition: 50ms;
+}
+
+.icon:hover {
+  transform: scale(1.2);
 }
 
 .pop-up-menu {
