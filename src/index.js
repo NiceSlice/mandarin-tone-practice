@@ -1,6 +1,7 @@
 const audioAssetsPath = "./assets/audio/";
 let score = 0;
 let type = "character";
+let autoplay = false;
 
 function play() {
   $("#audio")[0].play();
@@ -80,6 +81,10 @@ function setExpression(expression) {
       toneInputGroup.children("input").first().trigger("focus");
     }
   }
+
+  if (autoplay) {
+    play();
+  }
 }
 
 function getRandomNumber(min, max) {
@@ -155,7 +160,7 @@ function validate() {
 }
 
 $(document).ready(() => {
-  $("#play-button").on("click", () => {
+  $("#play-button").on("click", function () {
     play();
   });
 
@@ -169,6 +174,20 @@ $(document).ready(() => {
 
     type = $(this).val();
     nextExpression();
+  });
+
+  $("#settings-icon").on("click", function () {
+    const menu = $("#settings-pop-up-menu");
+    if (menu.is(":hidden")) {
+      menu.show();
+      return;
+    }
+
+    menu.hide();
+  });
+
+  $("#autoplay").on("change", function () {
+    autoplay = $(this).is(":checked");
   });
 
   nextExpression();

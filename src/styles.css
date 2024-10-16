@@ -88,8 +88,6 @@ body {
 .tone-text-input {
   height: 1em;
   width: 1em;
-  margin-top: 0.5rem;
-  display: flex;
 }
 
 .tone-option-wrapper {
@@ -120,6 +118,7 @@ body {
 }
 
 .footer {
+  position: relative;
   display: flex;
   justify-content: flex-end;
 }
@@ -127,4 +126,22 @@ body {
 .icon {
   cursor: pointer;
   margin: 0 0.25rem;
+}
+
+.pop-up-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #e9e9ed;
+  border-radius: 3px;
+  right: 0;
+  bottom: 3rem;
+  padding: 0.5rem;
+  display: none;
+  cursor: default;
+}
+
+.checkbox,
+.checkbox-label {
+  cursor: pointer;
 }
