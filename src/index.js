@@ -30,13 +30,16 @@ function focusNextToneInput() {
 function focusPreviousToneInput() {
   const activeElement = $(document.activeElement);
 
-  if (activeElement.prop("tagName") !== "INPUT") {
+  if (
+    activeElement.prop("tagName") !== "INPUT" ||
+    !activeElement.hasClass("tone-text-input")
+  ) {
     $(".tone-text-input:visible").last().trigger("focus");
     return;
   }
 
   const i = activeElement.attr("id").split("-").pop();
-  if (i === 0) return;
+  if (i == 0) return;
 
   $(`#tone-input-${Number(i) - 1}`).trigger("focus");
   $(`#tone-input-${Number(i) - 1}`)[0].setSelectionRange(1, 1);
@@ -176,7 +179,9 @@ $(document).ready(() => {
     nextExpression();
   });
 
-  $("#settings-icon").on("click", function () {
+  $("#settings-icon").on("click", function (e) {
+    e.stopPropagation();
+
     const menu = $("#settings-pop-up-menu");
     if (menu.is(":hidden")) {
       menu.show();
@@ -191,6 +196,15 @@ $(document).ready(() => {
   });
 
   nextExpression();
+});
+
+$(document).on("click", function (e) {
+  if (
+    $(e.target).closest("#settings-pop-up-menu").length === 0 &&
+    $("#settings-pop-up-menu").is(":visible")
+  ) {
+    $("#settings-pop-up-menu").hide();
+  }
 });
 
 const shortcuts = {
