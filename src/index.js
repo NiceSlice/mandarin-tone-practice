@@ -131,7 +131,7 @@ function incorrect(correctTones) {
   $("#incorrect").show();
 }
 
-function nextExpression() {
+function showNextExpression() {
   showAnswer = false;
   $("#correct").hide();
   $("#incorrect").hide();
@@ -162,7 +162,17 @@ function validate() {
   correct();
 }
 
+function continueToNext() {
+  if (showAnswer) {
+    showNextExpression();
+  } else {
+    validate();
+  }
+}
+
 $(document).ready(() => {
+  showNextExpression();
+
   $("#play-button").on("click", function () {
     play();
   });
@@ -176,7 +186,7 @@ $(document).ready(() => {
     $(this).addClass("type-option-selected");
 
     type = $(this).val();
-    nextExpression();
+    showNextExpression();
   });
 
   $("#settings-icon").on("click", function (e) {
@@ -195,7 +205,9 @@ $(document).ready(() => {
     autoplay = $(this).is(":checked");
   });
 
-  nextExpression();
+  $("#continue-button").on("click", function () {
+    continueToNext();
+  });
 });
 
 $(document).on("click", function (e) {
@@ -208,22 +220,10 @@ $(document).on("click", function (e) {
 });
 
 const shortcuts = {
-  " ": () => {
-    play();
-  },
-  Enter: () => {
-    if (showAnswer) {
-      nextExpression();
-    } else {
-      validate();
-    }
-  },
-  ArrowRight: () => {
-    focusNextToneInput();
-  },
-  ArrowLeft: () => {
-    focusPreviousToneInput();
-  },
+  " ": play,
+  Enter: continueToNext,
+  ArrowRight: focusNextToneInput,
+  ArrowLeft: focusPreviousToneInput,
 };
 
 $(document).on("keydown", (e) => {
