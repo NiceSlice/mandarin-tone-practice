@@ -152,10 +152,23 @@ body {
   background-color: #e9e9ed;
   border-radius: 3px;
   right: 0;
-  bottom: 3rem;
-  padding: 0.5rem;
+  bottom: 2rem;
+  padding: 0.75rem;
   display: none;
   cursor: default;
+}
+
+.shortcuts-title {
+  margin-bottom: 0.75rem;
+}
+
+.shortcuts-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shortcuts-column {
+  margin-right: 2rem;
 }
 
 .checkbox,

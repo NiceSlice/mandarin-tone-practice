@@ -189,16 +189,16 @@ $(document).ready(() => {
     showNextExpression();
   });
 
+  $("#info-icon").on("click", function (e) {
+    e.stopPropagation();
+    closeMenus(e);
+    $("#info-pop-up-menu").show();
+  });
+
   $("#settings-icon").on("click", function (e) {
     e.stopPropagation();
-
-    const menu = $("#settings-pop-up-menu");
-    if (menu.is(":hidden")) {
-      menu.show();
-      return;
-    }
-
-    menu.hide();
+    closeMenus(e);
+    $("#settings-pop-up-menu").show();
   });
 
   $("#autoplay").on("change", function () {
@@ -210,13 +210,23 @@ $(document).ready(() => {
   });
 });
 
-$(document).on("click", function (e) {
+function closeMenus(e) {
   if (
     $(e.target).closest("#settings-pop-up-menu").length === 0 &&
     $("#settings-pop-up-menu").is(":visible")
   ) {
     $("#settings-pop-up-menu").hide();
   }
+  if (
+    $(e.target).closest("#info-pop-up-menu").length === 0 &&
+    $("#info-pop-up-menu").is(":visible")
+  ) {
+    $("#info-pop-up-menu").hide();
+  }
+}
+
+$(document).on("click", function (e) {
+  closeMenus(e);
 });
 
 const shortcuts = {
